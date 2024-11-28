@@ -9,6 +9,36 @@ This repository aims to simplify the task by bundling together versions that are
 
 ## Releases
 
+### v0.1.2
+
+_28 November 2024_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.86 :new: |
+| Identity | v0.2.46 :new: |
+| Region | v0.1.46 :new: |
+| Kubernetes | v0.2.53 :new: |
+| UI | v0.2.41 :new: |
+
+#### Relase Notes
+
+* Makes networks generic to lay a foundation for the compute service.
+* Adds in server provisioning to the region controller.
+* Streamlines region resource deletion.
+* Adds Kubernetes control plane node selection resource limits.
+* RBAC has been tigtened significantly.
+
+#### Upgrade Instructions
+
+* `PhysicalNetwork` resources are now `Network` resources, so all infrastructure in regions with physical network suport will need to be torn down and rebuilt.  Further to that, the APIs have been modified in the same way.
+* `HelmApplications` now make use of the new generic tags type, so you must delete all existing applications first in order to perform a clean upgrade: `kubectl delete helmapplications -A --all`.
+
+#### Breaking Changes
+
+* Any clients that relied on metadata tags on resources will need to be modified to read this from the generic metadata header, and not the spec.
+* Images and flavors should be read from the relevant service from now on as those can provide context specific filtering.
+
 ### v0.1.1
 
 _5 November 2024_
