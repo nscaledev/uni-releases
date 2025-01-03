@@ -9,6 +9,28 @@ This repository aims to simplify the task by bundling together versions that are
 
 ## Releases
 
+### v0.1.3
+
+_10 January 2025_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.88 :new: |
+| Identity | v0.2.49 :new: |
+| Region | v0.1.47 :new: |
+| Kubernetes | v0.2.54 :new: |
+| UI | v0.3.0 :new: |
+
+### Release Notes
+
+* Fixes CVE-2024-45337 and CVE-2024-45338.
+* Changes image metadata to be more descriptive in preparation for the compute service.
+* Fixes Kubernetes cluster resource leaks during deprovision.
+
+#### Upgrade Instructions
+
+* Image metadata needs to be updated to conform to the new [v2.0.0 specification](https://github.com/unikorn-cloud/specifications/blob/main/specifications/providers/openstack/flavors_and_images.md#image-properties).
+
 ### v0.1.2
 
 _28 November 2024_
