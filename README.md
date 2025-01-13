@@ -9,6 +9,23 @@ This repository aims to simplify the task by bundling together versions that are
 
 ## Releases
 
+### v0.1.4
+
+_13 January 2025_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.88 |
+| Identity | v0.2.50 :new: |
+| Region | v0.1.47: |
+| Kubernetes | v0.2.54 |
+| UI | v0.3.1 :new: |
+
+### Release Notes
+
+* Fixes a small bug in the service account read code.
+* Lots of UI stylistic changes to maintain consistency.
+
 ### v0.1.3
 
 _10 January 2025_
@@ -24,6 +41,8 @@ _10 January 2025_
 ### Release Notes
 
 * Fixes CVE-2024-45337 and CVE-2024-45338.
+* Adds service accounts to the identity service.
+* Adds a meta-user view to the identity service.
 * Changes image metadata to be more descriptive in preparation for the compute service.
 * Fixes Kubernetes cluster resource leaks during deprovision.
 
