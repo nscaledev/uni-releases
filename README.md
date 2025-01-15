@@ -9,6 +9,23 @@ This repository aims to simplify the task by bundling together versions that are
 
 ## Releases
 
+### v0.1.5
+
+_16 January 2025_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.88 |
+| Identity | v0.2.50 |
+| Region | v0.1.47: |
+| Kubernetes | v0.2.54 |
+| Compute | v0.1.0 :new: |
+| UI | v0.3.2 :new: |
+
+### Release Notes
+
+* Provides rudimentary support for the compute service, allowing provisioning of raw virtual machines and baremetal servers.
+
 ### v0.1.4
 
 _13 January 2025_
