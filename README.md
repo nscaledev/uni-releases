@@ -9,6 +9,28 @@ This repository aims to simplify the task by bundling together versions that are
 
 ## Releases
 
+### v0.1.6
+
+_20 January 2025_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.88 |
+| Identity | v0.2.51 :new: |
+| Region | v0.1.47: |
+| Kubernetes | v0.2.54 |
+| Compute | v0.1.0 |
+| UI | v0.3.3 :new: |
+
+### Release Notes
+
+* Rearchitects how users are managed internally, they are now objects that can exist in various states and may have metadata associated with them.
+
+#### Upgrade Instructions
+
+* Upgrading to this or a newer release from an older one **MUST** be accompanied by a user migration.  To perform this upgrade:
+  * `go run github.com/unikorn-cloud/identity/hack/user_migration`
+
 ### v0.1.5
 
 _16 January 2025_
