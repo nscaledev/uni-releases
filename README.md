@@ -3,11 +3,33 @@
 ![Unikorn Logo](https://raw.githubusercontent.com/unikorn-cloud/assets/main/images/logos/light-on-dark/logo.svg#gh-dark-mode-only)
 ![Unikorn Logo](https://raw.githubusercontent.com/unikorn-cloud/assets/main/images/logos/dark-on-light/logo.svg#gh-light-mode-only)
 
-Unikorn is a relatively large collection of independent microservices that combine to provide IaaS/PaaS functionality.
+Unikorn is a relatively large collection of independent micro-services that combine to provide IaaS/PaaS functionality.
 Maintaining a matrix of compatible versions is complex due to a lot of inter-dependencies.
 This repository aims to simplify the task by bundling together versions that are know to work together and notify of any breaking changes before the project becomes GA.
 
 ## Releases
+
+### v0.1.7
+
+_28 January 2025_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.88 |
+| Identity | v0.2.52 :new: |
+| Region | v0.1.47: |
+| Kubernetes | v0.2.55 :new: |
+| Compute | v0.1.0 |
+| UI | v0.3.4 :new: |
+
+### Release Notes
+
+* Fix some potential security flaws in the Identity service.
+* Adds a very early (alpha) integration with SMTP for email verification onboarding flows.
+* Improves the distinction between oauth2 and OIDC provider backends and enables GitHub authentication.
+* A epic 3000 line refactoring of UI to separate data from the view improving code cleanliness and legibility.
+* Inhibits Kubernetes cluster auto upgrade if a bundle crosses a major semver boundary, this is a breaking change.
+* Enables Kubernetes traffic when the source IP isn't from within the cluster e.g. a VPN gateway.
 
 ### v0.1.6
 
@@ -28,8 +50,8 @@ _20 January 2025_
 
 #### Upgrade Instructions
 
-* Upgrading to this or a newer release from an older one **MUST** be accompanied by a user migration.  To perform this upgrade:
-  * `go run github.com/unikorn-cloud/identity/hack/user_migration`
+* Upgrading to this or a newer release from an older one **MUST** be accompanied by a user migration.  To perform this upgrade _after_ upgrading Unikorn components, run:
+  * `go run github.com/unikorn-cloud/identity/hack/user_migration@latest`
 
 ### v0.1.5
 
@@ -101,17 +123,17 @@ _28 November 2024_
 | Kubernetes | v0.2.53 :new: |
 | UI | v0.2.41 :new: |
 
-#### Relase Notes
+#### Release Notes
 
 * Makes networks generic to lay a foundation for the compute service.
 * Adds in server provisioning to the region controller.
 * Streamlines region resource deletion.
 * Adds Kubernetes control plane node selection resource limits.
-* RBAC has been tigtened significantly.
+* RBAC has been tightened significantly.
 
 #### Upgrade Instructions
 
-* `PhysicalNetwork` resources are now `Network` resources, so all infrastructure in regions with physical network suport will need to be torn down and rebuilt.  Further to that, the APIs have been modified in the same way.
+* `PhysicalNetwork` resources are now `Network` resources, so all infrastructure in regions with physical network support will need to be torn down and rebuilt.  Further to that, the APIs have been modified in the same way.
 * `HelmApplications` now make use of the new generic tags type, so you must delete all existing applications first in order to perform a clean upgrade: `kubectl delete helmapplications -A --all`.
 
 #### Breaking Changes
@@ -134,7 +156,7 @@ _5 November 2024_
 #### Release Notes
 
 * Improves RBAC so users who use one service no longer need direct access to requisite services.
-* Remove flavor/image filtering from the region service, these need to be proxied through the top level service e.g. kubernetes, as those contain the domain specific knowledge to filter correctly.
+* Remove flavor/image filtering from the region service, these need to be proxied through the top level service e.g. Kubernetes, as those contain the domain specific knowledge to filter correctly.
 
 #### Breaking Changes
 
