@@ -9,6 +9,12 @@ This repository aims to simplify the task by bundling together versions that are
 
 ## Releases
 
+> [!CAUTION]
+> For those who don't read the documentation, here's a summary for you:
+> * Upgrading from [`< v0.1.2`](#v012) requires all cluster to be deleted.
+> * Upgrading from [`< v0.1.3`](#v013) requires image metadata updates.
+> * Upgrading from [`< v0.1.6`](#v016) requires user migration.
+
 ### v0.1.7
 
 _28 January 2025_
