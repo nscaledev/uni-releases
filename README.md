@@ -10,10 +10,47 @@ This repository aims to simplify the task by bundling together versions that are
 ## Releases
 
 > [!CAUTION]
-> For those who don't read the documentation, here's a summary for you:
-> * Upgrading from [`< v0.1.2`](#v012) requires all cluster to be deleted.
-> * Upgrading from [`< v0.1.3`](#v013) requires image metadata updates.
-> * Upgrading from [`< v0.1.6`](#v016) requires user migration.
+> For those who don't read the documentation, here's a summary for you, please consult the linked release notes:
+> * Upgrading to [`v0.1.8`](#v018) or greater requires resource allocation and quotas to be populated.
+> * Upgrading to [`v0.1.6`](#v016) or greater requires user migration.
+> * Upgrading to [`v0.1.3`](#v013) or greater requires image metadata updates.
+> * Upgrading to [`v0.1.2`](#v012) or greater requires all clusters to be deleted.
+
+### v0.1.8
+
+_05 February 2025_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.89 :new: |
+| Identity | v0.2.53 :new: |
+| Region | v0.1.48 :new: |
+| Kubernetes | v0.2.56 :new: |
+| Compute | v0.1.1 :new: |
+| UI | v0.3.5 :new: |
+
+### Release Notes
+
+* Toolchain upgrades across the board to remove CVEs.
+* Quotas can be managed at the organization level with integration with the Compute and Kubernetes services.
+* UI has fixed age formatting, added quotas to the dashboard.
+* UI RBAC handling completely rewritten to be less error prone.
+* UI adds toasts back so you can see quota errors on cluster create/update.
+* UI fixes for mobile.
+* UI Multi-selects reimplmented to provide better UX, and grouped resources can now be filtered.
+
+### Breaking Changes
+
+* Identity group, project, service account and user objects now always return an empty array so you can bind directly to them without having to populate and do null checks.
+  While this is backward compatible for reads, writes (especially creation) will need to ensure these arrays are instantiated.
+  Typescript will do this for you.
+
+### Upgrade Instructions
+
+* Upgrading to this or a newer release from an older one **MUST** be accompanied by an action that creates resource allocations for existing clusters, and quotas that satisfy these requirements.
+* You will need to create a platform admin level service account and do something similar to below:
+  * `go run github.com/unikorn-cloud/migration/v0_1_8/quota_migration@latest --region-host=${REGION_ENDPOINT} --access-token=${PLATFORM_ADMIN_SERVICE_ACCOUNT_ACCESS_TOKEN}`
+  * Local developement environments using private PKI may need the `--region-ca-secret-namespace=cert-manager --region-ca-secret-name=unikorn-ca` flags too.
 
 ### v0.1.7
 
@@ -57,7 +94,7 @@ _20 January 2025_
 #### Upgrade Instructions
 
 * Upgrading to this or a newer release from an older one **MUST** be accompanied by a user migration.  To perform this upgrade _after_ upgrading Unikorn components, run:
-  * `go run github.com/unikorn-cloud/identity/hack/user_migration@latest`
+  * `go run github.com/unikorn-cloud/migration/v0_1_6/user_migration@latest`
 
 ### v0.1.5
 
