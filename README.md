@@ -11,10 +11,36 @@ This repository aims to simplify the task by bundling together versions that are
 
 > [!CAUTION]
 > For those who don't read the documentation, here's a summary for you, please consult the linked release notes:
+> * Upgrading to [`v0.1.9`](#v019) or greater requires platform administrator role migration.
 > * Upgrading to [`v0.1.8`](#v018) or greater requires resource allocation and quotas to be populated.
 > * Upgrading to [`v0.1.6`](#v016) or greater requires user migration.
 > * Upgrading to [`v0.1.3`](#v013) or greater requires image metadata updates.
 > * Upgrading to [`v0.1.2`](#v012) or greater requires all clusters to be deleted.
+
+### v0.1.9
+
+_06 February 2025_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.89 |
+| Identity | v0.2.54 :new: |
+| Region | v0.1.48 |
+| Kubernetes | v0.2.56 |
+| Compute | v0.1.1 |
+| UI | v0.3.6 :new: |
+
+### Release Notes
+
+* A high severity privilege escalation was discovered in the identity service where a regular administrator could delegate platform administration privileges to any user or service account.
+  * The platform administrator role cannot be used directly by the API any more.
+  * Platform administrators are now added to the system via Helm, and thus go through peer review and change control.
+  * The upgrade instructions below will detect any groups with the old `platform-administrator` role, remove it and add in an `administrator` role, allowing continued operation by those users.
+
+### Upgrade Instructions
+
+* Upgrading to this or a newer release from an older one **MUST** be accompanied by an action that migrates users from a privileged group to one with fewer privileges:
+  * `go run github.com/unikorn-cloud/migration/v0_1_9/remove_platform_admin@latest`
 
 ### v0.1.8
 
@@ -50,7 +76,10 @@ _05 February 2025_
 * Upgrading to this or a newer release from an older one **MUST** be accompanied by an action that creates resource allocations for existing clusters, and quotas that satisfy these requirements.
 * You will need to create a platform admin level service account and do something similar to below:
   * `go run github.com/unikorn-cloud/migration/v0_1_8/quota_migration@latest --region-host=${REGION_ENDPOINT} --access-token=${PLATFORM_ADMIN_SERVICE_ACCOUNT_ACCESS_TOKEN}`
-  * Local developement environments using private PKI may need the `--region-ca-secret-namespace=cert-manager --region-ca-secret-name=unikorn-ca` flags too.
+  * Local development environments using private PKI may need the `--region-ca-secret-namespace=cert-manager --region-ca-secret-name=unikorn-ca` flags too.
+  * **IMPORTANT** v0.1.9 removed the ability for a service account to have platform admin, so it's recommended to upgrade to this release before v0.1.9 or later.
+    * If you don't &ndash; however &ndash; then you _can_ extract an access token for a platform admin enabled account from your browser.
+    * ... or you can rewrite the migration to poll the Kubernetes and Compute services for flavor information.
 
 ### v0.1.7
 
