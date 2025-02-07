@@ -11,36 +11,44 @@ This repository aims to simplify the task by bundling together versions that are
 
 > [!CAUTION]
 > For those who don't read the documentation, here's a summary for you, please consult the linked release notes:
-> * Upgrading to [`v0.1.9`](#v019) or greater requires platform administrator role migration.
+> * Upgrading to [`v0.1.10`](#v0110) or greater requires platform administrator role migration.
 > * Upgrading to [`v0.1.8`](#v018) or greater requires resource allocation and quotas to be populated.
 > * Upgrading to [`v0.1.6`](#v016) or greater requires user migration.
 > * Upgrading to [`v0.1.3`](#v013) or greater requires image metadata updates.
 > * Upgrading to [`v0.1.2`](#v012) or greater requires all clusters to be deleted.
 
-### v0.1.9
+### v0.1.10
 
-_06 February 2025_
+_07 February 2025_
 
 | Component | Version |
 | --- | --- |
 | Core | v0.1.89 |
-| Identity | v0.2.54 :new: |
+| Identity | v0.2.55 :new: |
 | Region | v0.1.48 |
 | Kubernetes | v0.2.56 |
 | Compute | v0.1.1 |
-| UI | v0.3.6 :new: |
+| UI | v0.3.7 :new: |
 
 ### Release Notes
 
 * A high severity privilege escalation was discovered in the identity service where a regular administrator could delegate platform administration privileges to any user or service account.
   * The platform administrator role cannot be used directly by the API any more.
   * Platform administrators are now added to the system via Helm, and thus go through peer review and change control.
+  * Likewise to minimize risk, system accounts using X.509 authentication accounts have also moved to using Helm as a configuration mechanism.
   * The upgrade instructions below will detect any groups with the old `platform-administrator` role, remove it and add in an `administrator` role, allowing continued operation by those users.
 
 ### Upgrade Instructions
 
 * Upgrading to this or a newer release from an older one **MUST** be accompanied by an action that migrates users from a privileged group to one with fewer privileges:
   * `go run github.com/unikorn-cloud/migration/v0_1_9/remove_platform_admin@latest`
+
+### v0.1.9
+
+> [!CAUTION]
+> This release has been withdrawn, please consult v0.1.10.
+
+_06 February 2025_
 
 ### v0.1.8
 
