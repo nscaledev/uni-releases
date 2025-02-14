@@ -17,6 +17,26 @@ This repository aims to simplify the task by bundling together versions that are
 > * Upgrading to [`v0.1.3`](#v013) or greater requires image metadata updates.
 > * Upgrading to [`v0.1.2`](#v012) or greater requires all clusters to be deleted.
 
+### v0.1.11
+
+_14 February 2025_ :heartbeat: :rose:
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.89 |
+| Identity | v0.2.56 :new: |
+| Region | v0.1.48 |
+| Kubernetes | v0.2.57 :new: |
+| Compute | v0.1.1 |
+| UI | v0.3.8 :new: |
+
+### Release Notes
+
+* Add network prefix selection and some API configuration to Kubernetes, 99% of users shouldn't need this as it's for advanced routing, and they should be using ingress gateways and the like to do it properly.
+* Update to CAPI/CAPO.
+* Small fix to users.
+* Small fixes to cluster manager selection during cluster creation.
+
 ### v0.1.10
 
 _07 February 2025_
