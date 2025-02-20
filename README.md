@@ -17,6 +17,33 @@ This repository aims to simplify the task by bundling together versions that are
 > * Upgrading to [`v0.1.3`](#v013) or greater requires image metadata updates.
 > * Upgrading to [`v0.1.2`](#v012) or greater requires all clusters to be deleted.
 
+### v0.1.12
+
+_20 February 2025_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.89 |
+| Identity | v0.2.57 :new: |
+| Region | v0.1.49 :new: |
+| Kubernetes | v0.2.58 :new: |
+| Compute | v0.1.2 :new: |
+| UI | v0.3.9 :new: |
+
+### Release Notes
+
+* Primarily fixing prominent failures in the OpenID Connect Conformance suite.
+* Fixes critical bugs with code and refresh token reuse.
+* Makes all clients require the secure handling of a client secret.
+* Small tweak to Cilium so it actually pays attention to the pod CIDR, it ignores what's passed into CAPI by default.
+
+### Upgrade Instructions
+
+* The everything but the UI service should be upgraded first, this will update the `oauth2client` CRDs and populate client secrets.
+* The UI itself can then be upgraded.
+  * You will need to find the client secret corresponding to your client ID (`kubectl get oauth2clients -A`), then add a new `oauth2.clientSecret` key to your Helm `values.yaml`.
+  * Local development environments will need to set the `tls.private=true` option to trust the TLS endpoints from Node.
+
 ### v0.1.11
 
 _14 February 2025_ :heartbeat: :rose:
