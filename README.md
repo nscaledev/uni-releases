@@ -11,11 +11,44 @@ This repository aims to simplify the task by bundling together versions that are
 
 > [!CAUTION]
 > For those who don't read the documentation, here's a summary for you, please consult the linked release notes:
+> * Upgrading to [`v0.1.13`](#v0113) or greater requires user migration.
 > * Upgrading to [`v0.1.10`](#v0110) or greater requires platform administrator role migration.
 > * Upgrading to [`v0.1.8`](#v018) or greater requires resource allocation and quotas to be populated.
 > * Upgrading to [`v0.1.6`](#v016) or greater requires user migration.
 > * Upgrading to [`v0.1.3`](#v013) or greater requires image metadata updates.
 > * Upgrading to [`v0.1.2`](#v012) or greater requires all clusters to be deleted.
+
+### v0.1.13
+
+_27 February 2025_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.90 :new: |
+| Identity | v0.2.58 :new: |
+| Region | v0.1.49 |
+| Kubernetes | v0.2.58 |
+| Compute | v0.1.2 |
+| UI | v0.3.10 :new: |
+
+#### Release Notes
+
+* Fixes last failures in the OpenID Connect Basic conformance suite
+  * Notably users are now "global" objects scoped to the Identity service namespace, and are referenced by organization users that are organization scoped.
+  * This allows per-client session management and more reliable access/refresh token validation/revocation.
+
+#### Upgrade Instructions
+
+* Upgrading to this or a newer release from an older one **MUST** be accompanied by an action that migrates users from being organization scoped to global scoped, and replaces users with organization users while maintaining referential integrity:
+  * `go run github.com/unikorn-cloud/migration/v0_1_13/user_migration@latest`
+
+#### Breaking Changes
+
+* Identity Helm chart.
+  * The `platformAdministrators.role` option been replaced with `platformAdministrators.roles` and is now an array.
+* UI Helm chart.
+  * The `oauth2.clientName` option is no longer supported, and you must use `oauth2.clientID` instead.
+  * Alternatively, you can use `oauth2.clientSecretSecretName` to source the client ID and secret from a Kubernetes secret.
 
 ### v0.1.12
 
@@ -30,14 +63,14 @@ _20 February 2025_
 | Compute | v0.1.2 :new: |
 | UI | v0.3.9 :new: |
 
-### Release Notes
+#### Release Notes
 
 * Primarily fixing prominent failures in the OpenID Connect Conformance suite.
 * Fixes critical bugs with code and refresh token reuse.
 * Makes all clients require the secure handling of a client secret.
 * Small tweak to Cilium so it actually pays attention to the pod CIDR, it ignores what's passed into CAPI by default.
 
-### Upgrade Instructions
+#### Upgrade Instructions
 
 * The everything but the UI service should be upgraded first, this will update the `oauth2client` CRDs and populate client secrets.
 * The UI itself can then be upgraded.
@@ -57,7 +90,7 @@ _14 February 2025_ :heartbeat: :rose:
 | Compute | v0.1.1 |
 | UI | v0.3.8 :new: |
 
-### Release Notes
+#### Release Notes
 
 * Add network prefix selection and some API configuration to Kubernetes, 99% of users shouldn't need this as it's for advanced routing, and they should be using ingress gateways and the like to do it properly.
 * Update to CAPI/CAPO.
@@ -77,7 +110,7 @@ _07 February 2025_
 | Compute | v0.1.1 |
 | UI | v0.3.7 :new: |
 
-### Release Notes
+#### Release Notes
 
 * A high severity privilege escalation was discovered in the identity service where a regular administrator could delegate platform administration privileges to any user or service account.
   * The platform administrator role cannot be used directly by the API any more.
@@ -85,7 +118,7 @@ _07 February 2025_
   * Likewise to minimize risk, system accounts using X.509 authentication accounts have also moved to using Helm as a configuration mechanism.
   * The upgrade instructions below will detect any groups with the old `platform-administrator` role, remove it and add in an `administrator` role, allowing continued operation by those users.
 
-### Upgrade Instructions
+#### Upgrade Instructions
 
 * Upgrading to this or a newer release from an older one **MUST** be accompanied by an action that migrates users from a privileged group to one with fewer privileges:
   * `go run github.com/unikorn-cloud/migration/v0_1_9/remove_platform_admin@latest`
@@ -110,7 +143,7 @@ _05 February 2025_
 | Compute | v0.1.1 :new: |
 | UI | v0.3.5 :new: |
 
-### Release Notes
+#### Release Notes
 
 * Toolchain upgrades across the board to remove CVEs.
 * Quotas can be managed at the organization level with integration with the Compute and Kubernetes services.
@@ -120,13 +153,13 @@ _05 February 2025_
 * UI fixes for mobile.
 * UI Multi-selects reimplmented to provide better UX, and grouped resources can now be filtered.
 
-### Breaking Changes
+#### Breaking Changes
 
 * Identity group, project, service account and user objects now always return an empty array so you can bind directly to them without having to populate and do null checks.
   While this is backward compatible for reads, writes (especially creation) will need to ensure these arrays are instantiated.
   Typescript will do this for you.
 
-### Upgrade Instructions
+#### Upgrade Instructions
 
 * Upgrading to this or a newer release from an older one **MUST** be accompanied by an action that creates resource allocations for existing clusters, and quotas that satisfy these requirements.
 * You will need to create a platform admin level service account and do something similar to below:
@@ -149,7 +182,7 @@ _28 January 2025_
 | Compute | v0.1.0 |
 | UI | v0.3.4 :new: |
 
-### Release Notes
+#### Release Notes
 
 * Fix some potential security flaws in the Identity service.
 * Adds a very early (alpha) integration with SMTP for email verification onboarding flows.
@@ -171,7 +204,7 @@ _20 January 2025_
 | Compute | v0.1.0 |
 | UI | v0.3.3 :new: |
 
-### Release Notes
+#### Release Notes
 
 * Rearchitects how users are managed internally, they are now objects that can exist in various states and may have metadata associated with them.
 
@@ -193,7 +226,7 @@ _16 January 2025_
 | Compute | v0.1.0 :new: |
 | UI | v0.3.2 :new: |
 
-### Release Notes
+#### Release Notes
 
 * Provides rudimentary support for the compute service, allowing provisioning of raw virtual machines and baremetal servers.
 
@@ -209,7 +242,7 @@ _13 January 2025_
 | Kubernetes | v0.2.54 |
 | UI | v0.3.1 :new: |
 
-### Release Notes
+#### Release Notes
 
 * Fixes a small bug in the service account read code.
 * Lots of UI stylistic changes to maintain consistency.
@@ -226,7 +259,7 @@ _10 January 2025_
 | Kubernetes | v0.2.54 :new: |
 | UI | v0.3.0 :new: |
 
-### Release Notes
+#### Release Notes
 
 * Fixes CVE-2024-45337 and CVE-2024-45338.
 * Adds service accounts to the identity service.
