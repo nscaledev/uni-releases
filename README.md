@@ -18,6 +18,32 @@ This repository aims to simplify the task by bundling together versions that are
 > * Upgrading to [`v0.1.3`](#v013) or greater requires image metadata updates.
 > * Upgrading to [`v0.1.2`](#v012) or greater requires all clusters to be deleted.
 
+### v0.1.14
+
+_6 March 2025_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.91 :new: |
+| Identity | v0.2.59 :new: |
+| Region | v0.1.50 :new: |
+| Kubernetes | v0.2.59 :new: |
+| Compute | v0.1.3 :new: |
+| UI | v0.3.11 :new: |
+
+#### Release Notes
+
+* Updates across the board to fix CVE-2025-27144.
+* Kubernetes cluster controllers improved to increase memory allocation.
+* Compute and Region services updated to allow servers to act as routers.
+* Removal of insecure configuration options and general maintenance.
+* Identity account creation option.
+
+#### Breaking Changes
+
+* The internal format of access and refresh tokens has changed.
+  * Users will need to logout and back in again, service accounts will need to regenerate their tokens.
+
 ### v0.1.13
 
 _27 February 2025_
