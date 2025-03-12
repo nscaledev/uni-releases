@@ -18,6 +18,28 @@ This repository aims to simplify the task by bundling together versions that are
 > * Upgrading to [`v0.1.3`](#v013) or greater requires image metadata updates.
 > * Upgrading to [`v0.1.2`](#v012) or greater requires all clusters to be deleted.
 
+### v0.1.15
+
+_13 March 2025_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.92 :new: |
+| Identity | v0.2.60 :new: |
+| Region | v0.1.51 :new: |
+| Kubernetes | v0.2.60 :new: |
+| Compute | v0.1.4 :new: |
+| UI | v0.3.12 :new: |
+| client-go | v0.1.3 |
+
+#### Release Notes
+
+* Fixes CVE-2025-22870.
+* Improvment to the identity service so a platform-admin can scope organizations to only those they are a member of.
+* Updated software components for Kubernetes clusters.
+* UI updated to Skeleton UI 3 and Tailwind CSS 4.
+* Fix to the region controller to allow more backups and snapshots.
+
 ### v0.1.14
 
 _6 March 2025_
@@ -30,6 +52,7 @@ _6 March 2025_
 | Kubernetes | v0.2.59 :new: |
 | Compute | v0.1.3 :new: |
 | UI | v0.3.11 :new: |
+| client-go | v0.1.3 :new: |
 
 #### Release Notes
 
