@@ -18,6 +18,26 @@ This repository aims to simplify the task by bundling together versions that are
 > * Upgrading to [`v0.1.3`](#v013) or greater requires image metadata updates.
 > * Upgrading to [`v0.1.2`](#v012) or greater requires all clusters to be deleted.
 
+### v0.1.16
+
+_19 March 2025_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.92  |
+| Identity | v0.2.61 :new: |
+| Region | v0.1.52 :new: |
+| Kubernetes | v0.2.61 :new: |
+| Compute | v0.1.5 :new: |
+| UI | v0.3.13 :new: |
+| client-go | v0.1.3 |
+
+#### Release Notes
+
+* Fixes a security hole with mTLS where NGINX was required to be able to access any secret anywhere.
+* Adds validating admission policies for identity, compute and Kubernetes resources to enforce labels and annotations.
+* Styling tweaks to the UI discovered after the Skeleton upgrade.
+
 ### v0.1.15
 
 _13 March 2025_
