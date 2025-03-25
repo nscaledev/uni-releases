@@ -18,6 +18,33 @@ This repository aims to simplify the task by bundling together versions that are
 > * Upgrading to [`v0.1.3`](#v013) or greater requires image metadata updates.
 > * Upgrading to [`v0.1.2`](#v012) or greater requires all clusters to be deleted.
 
+### v0.1.17
+
+_26 March 2025_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.93 :new: |
+| Identity | v0.2.61 |
+| Region | v0.1.52 |
+| Kubernetes | v0.2.62 :new: |
+| Compute | v0.1.5 |
+| UI | v0.3.14 :new: |
+| client-go | v0.1.3 |
+
+#### Release Notes
+
+* Updates `HelmApplication` CRDs to remove the "interface" and instead pass through the application version to a provisioner's parameters, values and customization hooks.
+* Updates the Kubernetes service to limit API resource utilization, increases machine health check limits to allow a baremetal node to be rebooted without being kicked out, adds in parallel image pulls to optimize AI/ML workloads and startup times.
+* Updates Kubernetes cluster managers to enable monitoring.
+* Some stylistic and functional tweaks to the UI.
+
+#### Operational Notes
+
+* A new Kubernetes application bundle version is released as the above changes will need a cluster rolling upgrade in order to deploy.
+  * As such these are subject to the default auto-upgrade rules.
+  * If you have manually disabled this behaviour, then clusters will need to be manually upgraded during a conventient maintenance window.
+
 ### v0.1.16
 
 _19 March 2025_
