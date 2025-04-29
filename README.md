@@ -18,6 +18,40 @@ This repository aims to simplify the task by bundling together versions that are
 > * Upgrading to [`v0.1.3`](#v013) or greater requires image metadata updates.
 > * Upgrading to [`v0.1.2`](#v012) or greater requires all clusters to be deleted.
 
+### v0.1.18
+
+_29 April 2025_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.94 :new: |
+| Identity | v0.2.62 :new: |
+| Region | v0.1.53 :new: |
+| Kubernetes | v0.2.63 :new: |
+| Compute | v0.1.6 :new: |
+| UI | v0.3.15 :new: |
+| client-go | v0.1.4 :new: |
+
+#### Release Notes
+
+* Laying the foundation for "K8S Lite", or virtual Kubernetes clusters.
+* Allows the export of Kubernetes region data from the region controller.
+* This is then offered up to clients via context specific APIs in the Kubernetes and compute controllers.
+* Kubernetes and UI are updated to allow virtual cluster provisioning.
+* Kubernetes API now exposes auto-upgrade so this can be deactivated or manually configured.
+* vCluster upgrades across the board to mitigate some bugs.
+* Fixes to AMD GPU operator that weren't caught at deployment time.
+
+#### Breaking Changes
+
+* Virtual clusters now require monitoring, so all environments will need `kube-prometheus-stack` installing before atempting the upgrade.
+* Virtual clusters now have expanded volume sizes.
+  * These cannot be applied via automation, so auto upgrades are inhibited by a new major version.
+  * Upgrading existing cluster manager virtual clusters requires:
+    * Manually updating the PVC resource request to 10Gi to mirror the new default, if your CSI provider does not support dynamic volume resize you will need to delete the cluster manager and all managed clusters to pick up the changes (typically local development KinD clusters).
+    * Manually update the cluster manager application bundle to `2.0.0`.
+    * Delete the failing stateful set in ArgoCD (with non-cacscading/orphan semantics).
+
 ### v0.1.17
 
 _26 March 2025_
