@@ -18,6 +18,33 @@ This repository aims to simplify the task by bundling together versions that are
 > * Upgrading to [`v0.1.3`](#v013) or greater requires image metadata updates.
 > * Upgrading to [`v0.1.2`](#v012) or greater requires all clusters to be deleted.
 
+### v0.1.19
+
+_02 May 2025_
+
+| Component | Version |
+| --- | --- |
+| Core | v0.1.95 :new: |
+| Identity | v0.2.63 :new: |
+| Region | v0.1.54 :new: |
+| Kubernetes | v0.2.64 :new: |
+| Compute | v0.1.7 :new: |
+| UI | v0.3.16 :new: |
+| client-go | v0.1.4 |
+
+#### Release Notes
+
+* Incremental updates to the K8S Lite service.
+* Support for Kubernetes 1.33.
+* Upgraded tool chain and libraries.
+* Some small quality of life improvements for developers across all services.
+* Adding back in toasts to the UI now that's stable again.
+* Fix token refresh races with concurrent API calls.
+
+#### Operational Notes
+
+* A new Kubernetes cluster application bundle is available that will trigger a rolling upgrade of the control plane, this is to facilitate the removal of a retired CLI flag.
+
 ### v0.1.18
 
 _29 April 2025_
@@ -44,13 +71,13 @@ _29 April 2025_
 
 #### Breaking Changes
 
-* Virtual clusters now require monitoring, so all environments will need `kube-prometheus-stack` installing before atempting the upgrade.
+* Virtual clusters now require monitoring, so all environments will need `kube-prometheus-stack` installing before attempting the upgrade.
 * Virtual clusters now have expanded volume sizes.
   * These cannot be applied via automation, so auto upgrades are inhibited by a new major version.
   * Upgrading existing cluster manager virtual clusters requires:
     * Manually updating the PVC resource request to 10Gi to mirror the new default, if your CSI provider does not support dynamic volume resize you will need to delete the cluster manager and all managed clusters to pick up the changes (typically local development KinD clusters).
     * Manually update the cluster manager application bundle to `2.0.0`.
-    * Delete the failing stateful set in ArgoCD (with non-cacscading/orphan semantics).
+    * Delete the failing stateful set in ArgoCD (with non-cascading/orphan semantics).
 
 ### v0.1.17
 
@@ -77,7 +104,7 @@ _26 March 2025_
 
 * A new Kubernetes application bundle version is released as the above changes will need a cluster rolling upgrade in order to deploy.
   * As such these are subject to the default auto-upgrade rules.
-  * If you have manually disabled this behaviour, then clusters will need to be manually upgraded during a conventient maintenance window.
+  * If you have manually disabled this behavior, then clusters will need to be manually upgraded during a convenient maintenance window.
 
 ### v0.1.16
 
@@ -116,7 +143,7 @@ _13 March 2025_
 #### Release Notes
 
 * Fixes CVE-2025-22870.
-* Improvment to the identity service so a platform-admin can scope organizations to only those they are a member of.
+* Improvement to the identity service so a platform-admin can scope organizations to only those they are a member of.
 * Updated software components for Kubernetes clusters.
 * UI updated to Skeleton UI 3 and Tailwind CSS 4.
 * Fix to the region controller to allow more backups and snapshots.
