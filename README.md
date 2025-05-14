@@ -18,6 +18,24 @@ This repository aims to simplify the task by bundling together versions that are
 > * Upgrading to [`v0.1.3`](#v013) or greater requires image metadata updates.
 > * Upgrading to [`v0.1.2`](#v012) or greater requires all clusters to be deleted.
 
+### v1.0.0
+
+_14 May 2025_
+
+> [!NOTE]
+> From this point on all components will be tagged with the same major/minor.
+> Patch releases may be advertised for individual components, and any patch version dependencies described here.
+
+#### Release Notes
+
+* Upgraded common helm chart upgraded to make image pull secrets common and global.
+* Kubernetes and Compute services cache region data to improve interactivity of the UX, clients likewise are lazily instantiated to improve performance.
+* Upgrades to the NVIDIA GPU Operator and Cilium.
+
+#### Operational Notes
+
+* The NVIDIA and Cilium upgrades are accompanied by a new cluster application bundle, and subject to normal auto-upgrade semantics.
+
 ### v0.1.19
 
 _02 May 2025_
