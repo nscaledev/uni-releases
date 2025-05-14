@@ -36,6 +36,11 @@ _14 May 2025_
 
 * The NVIDIA and Cilium upgrades are accompanied by a new cluster application bundle, and subject to normal auto-upgrade semantics.
 
+#### Breaking Changes
+
+* All charts have been modified to derive resource names from the chart release, this may cause conflicts during deployments to do with ingresses defining the same host and path.
+  It's safe to delete the existing ingress and redeploy in this case.
+
 ### v0.1.19
 
 _02 May 2025_
