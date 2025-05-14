@@ -26,6 +26,12 @@ _14 May 2025_
 > From this point on all components will be tagged with the same major/minor.
 > Patch releases may be advertised for individual components, and any patch version dependencies described here.
 
+#### Patch Releases
+
+| Component | Version | Description | Dependencies |
+| --- | --- | --- | --- |
+| Kubernetes | v1.0.1 | Fixes SQLite database compaction in vClusters | |
+
 #### Release Notes
 
 * Upgraded common helm chart upgraded to make image pull secrets common and global.
