@@ -8,6 +8,8 @@
 All components will be tagged with the same major/minor.
 Patch releases may be advertised for individual components, and any patch version dependencies described here.
 
+### Core Components
+
 | Component |
 | --- |
 | [core](https://github.com/unikorn-cloud/core) |
@@ -16,7 +18,27 @@ Patch releases may be advertised for individual components, and any patch versio
 | [kubernetes](https://github.com/unikorn-cloud/kubernetes) |
 | [compute](https://github.com/unikorn-cloud/compute) |
 | [ui](https://github.com/unikorn-cloud/ui) |
+
+### DX Components
+
+| Component |
+| --- |
 | [client-go](https://github.com/unikorn-cloud/client-go) |
+| [api-docs](https://github.com/nscaledev/uni-api-docs) |
+
+### v1.1.0
+
+_27 May 2025_
+
+#### Release Notes
+
+* Adds in generic health status monitoring to all OpenAPI types.
+* Health monitoring enabled for all Identity and Kubernetes resources, Compute and Region services will be done in v1.2.0.
+* HA etcd based control planes for virtual Kubernetes clusters.
+* Fixes SQLite database compaction in vClusters.
+* Fixes default image selection algorithm.
+* Fixes allocation accounting in the Compute service.
+* Fixes typos in the UI along with Kubernetes version sorting and rounding errors with quota views.
 
 ### v1.0.0
 
