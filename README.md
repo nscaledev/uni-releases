@@ -30,6 +30,10 @@ Patch releases may be advertised for individual components, and any patch versio
 
 _2 June 2025_
 
+| Component | Version | Description | Dependencies |
+| --- | --- | --- | --- |
+| kubernetes | v1.2.1 | Presents cluster topology information to the underlying chart | |
+
 #### Release Notes
 
 * Region controller unifies API types where possible, which is fine for Typescript due to duck typing, but allows better usability via Go.
