@@ -97,3 +97,7 @@ _14 May 2025_
 ### Earlier Releases
 
 [Version v0.x.x Archive](./README-v0.md)
+
+### Developer Zone
+
+[Release Process Guide](./README.developer.md)
