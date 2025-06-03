@@ -197,3 +197,24 @@ Try and come up with a solution that makes them go away.
 But there are examples where they are safe as far as the end user is concerned that needs a manual tweak here and there that are acceptable.
 
 In general, follow the example set.
+
+## Patch Releases
+
+Not much to say on this.
+If a bug needs fixing, have it reviewed and merged to `main`.
+
+Next either checkout the hot fix branch or create one.
+This will always be in the form `v1.2.x` (where `x` is literal, not a variable!)
+
+Cherry pick the fix:
+
+```shell
+git cherry-pick <Commit SHA>
+```
+
+Make any necessary changes to make the backport apply cleanly.
+
+Create a release candidate and perform any testing.
+Do not be pressured into skipping testing, you'll only waste more time - and upset end-users more - if you make a mistake or miss some edge case the developer also did.
+
+Finally create the full patch release once satisfied and add it to the release notes.
