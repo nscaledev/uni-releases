@@ -33,6 +33,7 @@ _2 June 2025_
 | Component | Version | Description | Dependencies |
 | --- | --- | --- | --- |
 | kubernetes | v1.2.1 | Presents cluster topology information to the underlying chart | |
+| identity | v1.2.1 | Increases CPU/memory limits and allows them to be modified | |
 
 #### Release Notes
 
