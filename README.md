@@ -26,9 +26,34 @@ Patch releases may be advertised for individual components, and any patch versio
 | [client-go](https://github.com/unikorn-cloud/client-go) |
 | [api-docs](https://github.com/nscaledev/uni-api-docs) |
 
+### v1.3.0
+
+_6 June 2025_
+
+#### Release Notes
+
+* All controllers can now set their resource limits via Helm.
+* Core API health status expanded with more states.
+* Region APIs update to allow filtering of resources by tag.
+* Region API handler fully refactored and RBAC bypass holes patched.
+* Region now does asynchronous health monitoring on server resources.
+* Compute updated to take advantage of service side tag filtering.
+* Compute propagates server health status to clients and does roll up to the cluster resource.
+* Compute now does asynchronous health monitoring on cluster resources.
+* Kubernetes propagates workload pool information to the virtual cluster chart.
+* Kubernetes sensibly names virtual cluster namespaces so they can be selected by a regular expression.
+
+#### Breaking Changes
+
+* Existing virtual clusters will have their namespace changed.
+  **These will be deleted and recreated**
+* Compute clients using the machine status will break, specifically the `status` field is renamed to `provisioningStatus` to accommodate health status.
+
 ### v1.2.0
 
 _2 June 2025_
+
+#### Patch Releases
 
 | Component | Version | Description | Dependencies |
 | --- | --- | --- | --- |
