@@ -30,6 +30,12 @@ Patch releases may be advertised for individual components, and any patch versio
 
 _6 June 2025_
 
+#### Patch releases
+
+| Component | Version | Description | Dependencies |
+| --- | --- | --- | --- |
+| kubernetes | v1.3.1 | Fixes problem with virtual cluster syncing | |
+
 #### Release Notes
 
 * All controllers can now set their resource limits via Helm.
