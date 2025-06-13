@@ -200,21 +200,31 @@ In general, follow the example set.
 
 ## Patch Releases
 
-Not much to say on this.
+Patch releases are made from hotfix branches. A hotfix branch is named `v<Major>.<Minor>.x`; e.g., `"v1.3.x"`, and is branched from the release tag of the last minor version.
+For example, you would create the hotfix branch `v1.3.x`, if it didn't exist already, with:
+
+    git switch -c v1.3.x v1.3.0
+
+### Preparing a patch release
+
 If a bug needs fixing, have it reviewed and merged to `main`.
 
 Next either checkout the hot fix branch or create one.
-This will always be in the form `v1.2.x` (where `x` is literal, not a variable!)
+This will always be in the form `v1.2.x` (where `x` is literal, not a variable!), as explained above.
 
-Cherry pick the fix:
+Cherry pick the fix on to the hotfix branch:
 
 ```shell
 git cherry-pick <Commit SHA>
 ```
 
-Make any necessary changes to make the backport apply cleanly.
+This may result in a merge conflixt -- make any necessary changes to make the backport apply cleanly.
 
-Create a release candidate and perform any testing.
+Create a release candidate by tagging the HEAD of the hotfix branch, and perform any testing.
+
 Do not be pressured into skipping testing, you'll only waste more time - and upset end-users more - if you make a mistake or miss some edge case the developer also did.
 
-Finally create the full patch release once satisfied and add it to the release notes.
+Once satisfied with testing, create the full patch release by committing any version bumps (e.g., in Chart.yaml) to the hotfix branch, then tagging with the patch version and pushing that.
+The GitHub Actions should take over and publish images, push charts, and so on.
+
+Add it to the release notes.
