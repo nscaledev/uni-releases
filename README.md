@@ -35,6 +35,7 @@ _6 June 2025_
 | Component | Version | Description | Dependencies |
 | --- | --- | --- | --- |
 | kubernetes | v1.3.1 | Fixes problem with virtual cluster syncing | |
+| kubernetes | v1.3.2 | Fix kubeconfig download problem; label virtual cluster namespaces | |
 | ui | v1.3.1 | Fix dashboard view | |
 
 #### Release Notes
