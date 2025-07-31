@@ -1,14 +1,9 @@
 # Releases
 
-![Unikorn Logo](https://raw.githubusercontent.com/unikorn-cloud/assets/main/images/logos/light-on-dark/logo.svg#gh-dark-mode-only)
-![Unikorn Logo](https://raw.githubusercontent.com/unikorn-cloud/assets/main/images/logos/dark-on-light/logo.svg#gh-light-mode-only)
-
-## Releases
-
 All components will be tagged with the same major/minor.
 Patch releases may be advertised for individual components, and any patch version dependencies described here.
 
-### Core Components
+## Core Components
 
 | Component |
 | --- |
@@ -19,12 +14,36 @@ Patch releases may be advertised for individual components, and any patch versio
 | [compute](https://github.com/unikorn-cloud/compute) |
 | [ui](https://github.com/unikorn-cloud/ui) |
 
-### DX Components
+## DX Components
 
 | Component |
 | --- |
 | [client-go](https://github.com/unikorn-cloud/client-go) |
 | [api-docs](https://github.com/nscaledev/uni-api-docs) |
+
+## Change Log
+
+### v1.4.0
+
+_31 July 2025_
+
+#### Release Notes
+
+* Proliferation of tag based query selectors for API endpoints.
+* Service accounts can now self rotate their tokens.
+* Addition of an organization deletion API.
+* Service to service calls now propagate identity principals so we know who an action is ultimately on behalf of when infrastructure is provisioned in a private organization.
+* New Kubernetes clusters will now have Gateway API enabled, and those after they are are upgraded.
+* Fix UI white-boxing.
+* Fix compute service's flavor and image selection in the UI.
+
+#### Breaking Changes
+
+* The format of access tokens has changed due to a library update, so existing service accounts will need token rotation.
+
+#### Operational Notes
+
+* A new Kubernetes application bundle is available that will upgrade Cilium CNI and may result in temporary network blips.
 
 ### v1.3.0
 
