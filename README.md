@@ -21,6 +21,10 @@ Patch releases may be advertised for individual components, and any patch versio
 | [client-go](https://github.com/unikorn-cloud/client-go) |
 | [api-docs](https://github.com/nscaledev/uni-api-docs) |
 
+## Kubernetes Releases
+
+Additional documentation of Kubernetes application bundle releases is provided [here](README.kubernetes.md) to document upgrade paths if auto-update is not enabled, given they may require a full cluster upgrade.
+
 ## Change Log
 
 ### v1.4.0
