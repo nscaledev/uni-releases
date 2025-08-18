@@ -31,6 +31,12 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 _31 July 2025_
 
+#### Patch Releases
+
+| Component | Version | Description | Dependencies |
+| --- | --- | --- | --- |
+| identity | v1.4.1 | Removes the need to rotate access tokens | |
+
 #### Release Notes
 
 * Proliferation of tag based query selectors for API endpoints.
