@@ -36,6 +36,7 @@ _31 July 2025_
 | Component | Version | Description | Dependencies |
 | --- | --- | --- | --- |
 | identity | v1.4.1 | Removes the need to rotate access tokens | |
+| identity | v1.4.2 | Fix updates to allocations preventing cluster resize | |
 | region | v1.4.1 | Fix security group rule aliasing | |
 | kubernetes | v1.4.1 | Fix broken application manifest | |
 
