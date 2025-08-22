@@ -31,6 +31,12 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 _20 August 2025_
 
+#### Patch Releases
+
+| Component | Version | Description | Dependencies |
+| --- | --- | --- | --- |
+| kubernetes | v1.5.1 | Fixes Kubernetes cluster upgrade. | |
+
 #### Release Notes
 
 * Fixes a bug affecting identity, compute and kubernetes where the namespace kind was not honored on project namespace lookup, and thus could alias with other 3rd party namespaces who also wanted to set organization and project labels.
