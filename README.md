@@ -27,6 +27,28 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 ## Change Log
 
+### v1.6.0
+
+_02 September 2025_
+
+#### Release Notes
+
+* Small fix to API handling to ensure deletion timestamps are set.
+* Compute clusters can now have a set of servers evicted.
+  This will remove the servers, free quota allocations and scale down the cluster.
+* The compute service will only advertise images with no software installed.
+* Fix to Kubernetes cluster upgrade.
+* The UI will now accept a more inclusive character set for resource names in line with the API.
+
+#### Breaking Changes
+
+* Compute clusters will no longer use predictable ordinal based naming, instead random.
+  While potentially inconvenient for humans, it allows better operational characteristics.
+* Existing compute clusters may no longer have a suitable backing image, and will need one
+  to be installed that can be used before clusters can be created or modified.
+  Modified clusters whose images have vanished will be automatically rebuilt when a
+  modification API request is submitted.
+
 ### v1.5.0
 
 _20 August 2025_
