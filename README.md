@@ -27,6 +27,22 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 ## Change Log
 
+### v1.7.0
+
+_23 September 2025_
+
+#### Release Notes
+
+* Change to the core controller upgrade logic, uses interfaces rather than forcing the use of empty functions in each controller.
+* Adds power management APIs to the compute service to allow servers to stopped, started and rebooted.
+* Extends the OpenStack image schema and region controller to support organization scoped private images.
+* Fixes bad slug lookups in the UI and redirects to the next highest level in the hierarchy.
+* Adds power management controls to the UI's compute cluster view.
+
+#### Breaking Changes
+
+* External services using the core controller logic and with upgrade functions defined will need to update the upgrade function signature to match that defined in the new interface.
+
 ### v1.6.0
 
 _02 September 2025_
