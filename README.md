@@ -31,6 +31,13 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 _23 September 2025_
 
+#### Patch Releases
+
+| Component | Version | Description | Dependencies |
+| --- | --- | --- | --- |
+| Region | v1.7.1 | <ul><li>Fixes a faulty custom resource that blocks server provisioning.</li></ul> | |
+| Compute | v1.7.1 | <ul><li>Fixes a race condition with server eviction.</li><li>Allows correct workload pool names.</li><li>Preserves image IDs when updating a cluster to prevent accidental reprovisioning.</li><li>Adds debug logging for API updates.</li><li>Doesn't rebuild servers on cloud-init data update.</li></ul> | |
+
 #### Release Notes
 
 * Change to the core controller upgrade logic, uses interfaces rather than forcing the use of empty functions in each controller.
