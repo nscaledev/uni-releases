@@ -37,6 +37,7 @@ _23 September 2025_
 | --- | --- | --- | --- |
 | Region | v1.7.1 | <ul><li>Fixes a faulty custom resource that blocks server provisioning.</li></ul> | |
 | Compute | v1.7.1 | <ul><li>Fixes a race condition with server eviction.</li><li>Allows correct workload pool names.</li><li>Preserves image IDs when updating a cluster to prevent accidental reprovisioning.</li><li>Adds debug logging for API updates.</li><li>Doesn't rebuild servers on cloud-init data update.</li></ul> | |
+| Kubernetes | v1.7.1 | <ul><li>Introduces a new cluster manager bundle with vCluster and Cert Manager upgrade options.</li></ul> | |
 
 #### Release Notes
 
