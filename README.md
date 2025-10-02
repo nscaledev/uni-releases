@@ -27,6 +27,22 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 ## Change Log
 
+### v1.8.0
+
+_2 October 2025_
+
+#### Release Notes
+
+* Numerous improvements to core reconciler logic.
+* Logging made less verbose in the good path, it can still be enabled with `--zap-log-level=debug`.
+* Region and Kubernetes deletion logic refactored and rationalized.
+* Security group controller is now deleted to simplify region handler logic.
+* All bug fixes included in v1.7.x patch releases.
+
+#### Operational Notes
+
+* You may have to manually delete `*securitygrouprules` custom resource definitions, and remove any finalizers from resources to fully clean up.
+
 ### v1.7.0
 
 _23 September 2025_
