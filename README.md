@@ -31,6 +31,13 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 _2 October 2025_
 
+#### Patch Releases
+
+| Component | Version | Description | Dependencies |
+| --- | --- | --- | --- |
+| compute | v.1.8.2 | <ul><li>Removes the necessity to have a single workload pool.</li></ul> | |
+| ui | v.1.8.2 | <ul><li>Removes the necessity to have a single workload pool.</li></ul> | |
+
 #### Release Notes
 
 * Numerous improvements to core reconciler logic.
