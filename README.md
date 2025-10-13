@@ -27,6 +27,18 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 ## Change Log
 
+### v1.9.0
+
+_13 October 2025_
+
+#### Release Notes
+
+* Cleanups and refactoring of the core library.
+* Projects gain the ability to have references attached to them to inhibit deletion, and potentially report what would be deleted if the project were to be.
+* Cloud identities in the region controller now react to project deletion events and also manage references on their project to control deletion semantics.
+* Compute resources now reside in the compute service's namespace to maintain data boundaries, this is performed transparently by an online upgrade.
+* Compute resources now react to network deletion in order to preserve cascading deletion semantics.
+
 ### v1.8.0
 
 _2 October 2025_
