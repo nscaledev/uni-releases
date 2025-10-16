@@ -31,6 +31,10 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 _13 October 2025_
 
+| Component | Version | Description | Dependencies |
+| --- | --- | --- | --- |
+| compute | v1.9.1 | <ul><li>Fix port firewalling of L3 addresses so servers can act as routers.</li></ul> | |
+
 #### Release Notes
 
 * Cleanups and refactoring of the core library.
@@ -47,8 +51,8 @@ _2 October 2025_
 
 | Component | Version | Description | Dependencies |
 | --- | --- | --- | --- |
-| compute | v.1.8.2 | <ul><li>Removes the necessity to have a single workload pool.</li></ul> | |
-| ui | v.1.8.2 | <ul><li>Removes the necessity to have a single workload pool.</li></ul> | |
+| compute | v1.8.2 | <ul><li>Removes the necessity to have a single workload pool.</li></ul> | |
+| ui | v1.8.2 | <ul><li>Removes the necessity to have a single workload pool.</li></ul> | |
 
 #### Release Notes
 
