@@ -31,6 +31,10 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 _28 October 2025_
 
+| Component | Version | Description | Dependencies |
+| --- | --- | --- | --- |
+| region | v1.10.1 | <ul><li>Fix reporting of private IP when server port is created.</li></ul> | |
+
 #### Release Notes
 
 * Includes a early (not stable) release of the region V2 API, allowing user provisioning of networks.
