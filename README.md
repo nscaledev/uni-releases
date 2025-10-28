@@ -27,6 +27,28 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 ## Change Log
 
+### v1.10.0
+
+_28 October 2025_
+
+#### Release Notes
+
+* Includes a early (not stable) release of the region V2 API, allowing user provisioning of networks.
+* Implements the Saga pattern for complex region V2 APIs.
+* Makes most region resources stateless to avoid drift.
+* Refactors quota allocation to use a shared library, avoiding code duplication.
+* Adds a network section to the UI.
+
+#### Operational Notes
+
+* To facilitate stateless region operation we need to rename provider resources to predictable, but unique, names.
+  * This will iterate over `openstacknetwork`, `openstacksecuritygroup` and `openstackserver` resources.
+  * Every resource ID encountered will be renamed to a stable and predictable name.
+  * On success the `openstack*` resource will be deleted.
+  * This is a fully managed, online upgrade.
+* VLAN allocation tracking used to use `openstacknetwork` resources, but now uses OpenStack as the source of truth.
+  * OpenStack clusters must be upgraded to use the newest network [policies](https://github.com/nscaledev/uni-python-unikorn-openstack-policy).
+
 ### v1.9.0
 
 _13 October 2025_
