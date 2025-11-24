@@ -27,9 +27,25 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 ## Change Log
 
+### v1.11.0
+
+_24 November 2025_
+
+#### Release Notes
+
+* Addition of instance API to the compute service.
+* Addition of server V2 API to the region service.
+* Fixes to existing region V2 APIs:
+  * Simplification of general API interfaces.
+  * Network address ranges have been modified.
+  * DHCP host routes can be specified for networks.
+  * Security group interfaces have been simplified, and extended to allow L3 protocols (ICMP and VRRP).
+
 ### v1.10.0
 
 _28 October 2025_
+
+#### Patch Releases
 
 | Component | Version | Description | Dependencies |
 | --- | --- | --- | --- |
@@ -58,6 +74,8 @@ _28 October 2025_
 ### v1.9.0
 
 _13 October 2025_
+
+#### Patch Releases
 
 | Component | Version | Description | Dependencies |
 | --- | --- | --- | --- |
