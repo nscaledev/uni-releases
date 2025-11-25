@@ -31,6 +31,10 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 _24 November 2025_
 
+| Component | Version | Description | Dependencies |
+| --- | --- | --- | --- |
+| region | v1.11.1 | <ul><li>Fix security group deletion.</li></ul> | |
+
 #### Release Notes
 
 * Addition of instance API to the compute service.
