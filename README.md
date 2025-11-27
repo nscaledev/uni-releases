@@ -34,6 +34,8 @@ _24 November 2025_
 | Component | Version | Description | Dependencies |
 | --- | --- | --- | --- |
 | region | v1.11.1 | <ul><li>Fix security group deletion.</li></ul> | |
+| region | v1.11.2 | <ul><li>Fix security group handling of any protocol.</li></ul> | |
+| compute | v1.11.1 | <ul><li>Fix instance quota and update handling.</li></ul> | |
 
 #### Release Notes
 
