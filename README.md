@@ -27,6 +27,40 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 ## Change Log
 
+### v1.12.0
+
+_15 December 2025_
+
+#### Release Notes
+
+* Updates to service to service clients to improve request throughput.
+* Fix to V2 API query filtering.
+* Fix to V2 network quota allocations.
+* Fix to server power state monitoring.
+* Adds an organization scoped auditor role.
+
+#### Operational Notes
+
+* OpenAPI response validation is a potentially costly operation that affects request latency and throughput.
+  Prior to this release, a validation failure emitted a error to logs, but this was easy to miss during development.
+  The default behavior is now to panic.
+  It is highly recommended that the identity, region, compute and kubernetes services are deployed with the following Helm configuration:
+
+```yaml
+server:
+  extraFlags:
+  - --runtime-schema-validation=false
+```
+
+* In the event that runtime schema validation needs to be enabled to diagnose an issue, the following is highly recommended:
+
+```yaml
+server:
+  extraFlags:
+  - --runtime-schema-validation=true
+  - --runtime-schema-validation-panic=false
+```
+
 ### v1.11.0
 
 _24 November 2025_
