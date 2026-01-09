@@ -29,6 +29,12 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 ### v1.12.0
 
+| Component | Version | Description | Dependencies |
+| --- | --- | --- | --- |
+| compute | v1.12.1 | Fixes HTTP response code for console output | |
+| region | v1.12.1 | Scope VLANAllocations to region | None |
+
+
 _15 December 2025_
 
 #### Release Notes
@@ -60,6 +66,9 @@ server:
   - --runtime-schema-validation=true
   - --runtime-schema-validation-panic=false
 ```
+#### Breaking Changes
+
+* VLANAllocations are now region scoped.  A new VLANAllocation will be created for each relevant region with a name in the format of `<provider>.<region-id>`.  Prior to upgrade it's recommended to create a new VLANAllocation definition which takes the `.spec.allocations` from the existing (unscoped) allocation and create the new one ahead of time.  Once the new version has rolled out the old VLANAllocation can be deleted.
 
 ### v1.11.0
 
