@@ -27,6 +27,32 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 ## Change Log
 
+### v1.13.0
+
+_15 January 2026_
+
+#### Release Notes
+
+* Separates service inter communication from oauth2 and relies on mTLS for workload identity.
+* Adds file storage APIs to the region service.
+* Adds image upload APIs to the region service.
+* Adds instance snapshot capability to the compute service.
+* Adds architecture field to images and flavors.
+* Adds image status to API responses.
+* Instance creation/update will now verify images and flavors are compatible.
+* Various fixes to API status code handling.
+* Adds support for private, organization scoped, regions.
+
+#### Operational Notes
+
+* The new image upload and snapshot service requires new permissions to function.
+  * Ensure the latest [policies](https://github.com/nscaledev/uni-python-unikorn-openstack-policy) are applied, and the `manager` role is associated with the region's OpenStack project.
+
+#### Breaking Changes
+
+* VLAN allocations were global but are now region scoped.
+  * Before upgrade rename any existing `openstack-region-provider` resource to `${provider_kind}.${region_id}` e.g. `openstack.a828effd-2e38-43f7-8ce1-1d35afcff9b3`.`
+
 ### v1.12.0
 
 | Component | Version | Description | Dependencies |
