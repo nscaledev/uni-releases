@@ -31,6 +31,10 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 _15 January 2026_
 
+| Component | Version | Description | Dependencies |
+| --- | --- | --- | --- |
+| region | v1.13.1 | <ul><li>Fixes a deadlock with network deletion</li></ul> | |
+
 #### Release Notes
 
 * Separates service inter communication from oauth2 and relies on mTLS for workload identity.
@@ -57,8 +61,8 @@ _15 January 2026_
 
 | Component | Version | Description | Dependencies |
 | --- | --- | --- | --- |
-| compute | v1.12.1 | Fixes HTTP response code for console output | |
-| region | v1.12.1 | Scope VLANAllocations to region | None |
+| compute | v1.12.1 | <ul><li>Fixes HTTP response code for console output</li></ul> | |
+| region | v1.12.1 | <ul><li>Scope VLANAllocations to region</li></ul> | |
 
 
 _15 December 2025_
