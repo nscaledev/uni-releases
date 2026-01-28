@@ -34,6 +34,7 @@ _15 January 2026_
 | Component | Version | Description | Dependencies |
 | --- | --- | --- | --- |
 | region | v1.13.1 | <ul><li>Fixes a deadlock with network deletion</li></ul> | |
+| region | v1.13.2 | <ul><li>Removes OpenStack security group quotas</li></ul> | |
 
 #### Release Notes
 
