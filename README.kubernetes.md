@@ -10,6 +10,18 @@ This covers things like:
 * Metric server
 * etc.
 
+## v1.4.0 (Release v1.14.0)
+
+_9 February 2026_
+
+### Release Notes
+
+* Releases 1.0.0, 1.1.0, 1.2.0 and 1.2.1 are now removed.
+* Ugrades to the following services:
+  * Cilium CNS.
+  * Cert manager.
+  * NVIDIA GPU operator.
+
 ## v1.3.0 (Release v1.4.0)
 
 _6 June 2025_

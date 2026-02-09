@@ -27,6 +27,22 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 ## Change Log
 
+### v1.14.0
+
+_9 February 2026_
+
+#### Release Notes
+
+* Many internal performance optimizations across all APIs.
+* Improved user facing error reporting and support for RFC9728.
+* Numerous fixes to the file storage service.
+* Fixes a race condition with server status updates.
+* Introduces an images API in the region service to aid with custom image management.
+* Relaxes the networks API to allow use of internal DNS services that can resolve instances on the same network.
+* [Upgrades](README.kubernetes.md#v140-release-v1140) to Kubernetes cluster services.
+* Upgrades to Kubernetes cluster manager services.
+* A huge effort to improve integration test coverage.
+
 ### v1.13.0
 
 _15 January 2026_
@@ -35,6 +51,9 @@ _15 January 2026_
 | --- | --- | --- | --- |
 | region | v1.13.1 | <ul><li>Fixes a deadlock with network deletion</li></ul> | |
 | region | v1.13.2 | <ul><li>Removes OpenStack security group quotas</li></ul> | |
+| region | v1.13.3 | <ul><li>Fixes an aliasing issue with security group rules</li></ul> | |
+| region | v1.13.4 | <ul><li>Fixes open connection leak with the file storage service</li></ul> | |
+| region | v1.13.5 | <ul><li>Fixes concurrent network resource deletion</li></ul> | |
 
 #### Release Notes
 
