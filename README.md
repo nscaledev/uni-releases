@@ -31,6 +31,11 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 _9 February 2026_
 
+| Component | Version | Description | Dependencies |
+| --- | --- | --- | --- |
+| region | v1.14.1 | <ul><li>Prohibits servers from being provisioned with the same name.</li><li>Allows file storage to specify parallelism (number of IP addresses).</li></ul> | |
+| compute | v1.14.1 | <ul><li>Prohibits instances from being provisioned with the same name.</li></ul> | |
+
 #### Release Notes
 
 * Many internal performance optimizations across all APIs.
