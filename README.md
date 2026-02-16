@@ -33,7 +33,10 @@ _9 February 2026_
 
 | Component | Version | Description | Dependencies |
 | --- | --- | --- | --- |
+| identity | v1.14.1 | <ul><li>Enables region image API reads.</li></ul> | |
 | region | v1.14.1 | <ul><li>Prohibits servers from being provisioned with the same name.</li><li>Allows file storage to specify parallelism (number of IP addresses).</li></ul> | |
+| region | v1.14.2 | <ul><li>Improves file storage parallelism API.</li></ul> | |
+| region | v1.14.3 | <ul><li>Fixes region visibility.</li><li>Ensures VLAN ID deallocation.</li></ul> | |
 | compute | v1.14.1 | <ul><li>Prohibits instances from being provisioned with the same name.</li></ul> | |
 
 #### Release Notes
