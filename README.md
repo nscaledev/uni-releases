@@ -37,7 +37,10 @@ _9 February 2026_
 | region | v1.14.1 | <ul><li>Prohibits servers from being provisioned with the same name.</li><li>Allows file storage to specify parallelism (number of IP addresses).</li></ul> | |
 | region | v1.14.2 | <ul><li>Improves file storage parallelism API.</li></ul> | |
 | region | v1.14.3 | <ul><li>Fixes region visibility.</li><li>Ensures VLAN ID deallocation.</li></ul> | |
+| region | v1.14.4 | <ul><li>Removes some erroneous error conditions from provisioning.</li></ul> | |
 | compute | v1.14.1 | <ul><li>Prohibits instances from being provisioned with the same name.</li></ul> | |
+| kubernetes | v1.14.1 | <ul><li>Makes cinder storage class non-default.</li><li>Allow optional GPU operator installation.</li><li>Allow the GPU operator to install its own drivers</li></ul> | |
+| kubernetes | v1.14.2 | <ul><li>Retry network provisioning to avoid a race on creation.</li></ul> | |
 
 #### Release Notes
 
