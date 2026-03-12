@@ -27,9 +27,29 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 ## Change Log
 
+### v1.15.0
+
+_12 March 2026_
+
+#### Release Notes
+
+* Introduces `pending` as a first-class provisioning state across the platform, replacing several prior `unknown` states in newly created or not-yet-observed resources and surfacing that state in the UI.
+* Adds storage-service identity wiring for `uni-storage`.
+* Improves file storage attachment status and storage parallelism validation.
+* Renames the public Kubernetes feature flag from `gpuOperator` to `hardwareEnablement`.
+* Improves concurrency, conflict handling and status flow across services.
+* Adds reserved-tag validation support to shared core APIs.
+
+#### Breaking Changes
+
+* Clients that previously expected `unknown` as the initial provisioning state should now handle `pending` instead.
+* External Kubernetes API consumers should move from `features.gpuOperator` to `features.hardwareEnablement` in the public API and generated clients. Internal CRDs remain `gpuOperator`, so this is a public API change rather than a cluster resource migration.
+
 ### v1.14.0
 
 _9 February 2026_
+
+#### Patch Releases
 
 | Component | Version | Description | Dependencies |
 | --- | --- | --- | --- |
@@ -57,6 +77,8 @@ _9 February 2026_
 ### v1.13.0
 
 _15 January 2026_
+
+#### Patch Releases
 
 | Component | Version | Description | Dependencies |
 | --- | --- | --- | --- |
@@ -89,6 +111,8 @@ _15 January 2026_
   * Before upgrade rename any existing `openstack-region-provider` resource to `${provider_kind}.${region_id}` e.g. `openstack.a828effd-2e38-43f7-8ce1-1d35afcff9b3`.`
 
 ### v1.12.0
+
+#### Patch Releases
 
 | Component | Version | Description | Dependencies |
 | --- | --- | --- | --- |
@@ -134,6 +158,8 @@ server:
 ### v1.11.0
 
 _24 November 2025_
+
+#### Patch Releases
 
 | Component | Version | Description | Dependencies |
 | --- | --- | --- | --- |
