@@ -27,6 +27,31 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 ## Change Log
 
+### v1.16.0
+
+_27 April 20206_
+
+#### Release Notes
+
+* Fixes a bug where TLS client key pair rotation was not respected by clients.
+* Fixes an RBAC bug where an admin user didn't check a project existed before creation.
+* Implements user/service account impersonation properly.
+* Fixes an idempotency bug with cross-service reference counting.
+* Improves RBAC error messages.
+* Higher order services (e.g. instances) now propagate instance IDs to the underlying server.
+  * Metadata service values follow the form `<service>:<key>: <value>`
+  * For example: `identity:organization_id: f7921073-e761-4242-80ee-2f4c03a0f164`
+  * Existing keys are left for backward compatibility.
+  * Existing servers will not pick up the new keys automatically, only newly created ones.
+* Improved caching layer in the region controller.
+* Improved service uptime during an upgrade.
+* Compute service now correctly creates quota allocations for instance public IPs.
+  * Existing instances are unaffected to maintain backward compatibility.
+* Region and compute services now supports the creation and use of SSH certificate CAS respectively.
+  * Specifying a CA during instance creation allows the end user to mint their own short lived SSH certificates for authentication.
+  * Use of this feature is recommended over the existing implicit SSH key pair creation, as private keying material is never given to the platform, nor retrievable from it via API.
+* Allows Kubernetes control planes to have their flavor and replicas set explicitly.
+
 ### v1.15.0
 
 _12 March 2026_
