@@ -36,7 +36,6 @@ An official release requires:
 * All components to be built and tagged with the same version.
 * Where a component depends on another (library dependency), those dependencies will be the exact version of the release.
 * All OpenAPI specification must be correctly versioned.
-* OpenAPI documentation generated.
 
 ### Release Candidates
 
@@ -57,100 +56,87 @@ You will need to release all of the [components](https://github.com/nscaledev/un
 For official releases only you will also need to release all of the [DX components](https://github.com/nscaledev/uni-releases?tab=readme-ov-file#dx-components) defined in the main documentation.
 Additionally you will need to create a change log entry in this repository.
 
-### Version Updates
+### Preparing the Release Branch
 
-Edit `charts/${chart}/Chart.yaml`, updating the version, which defines the canonical version for the package.
+All release work is done on a dedicated release branch named `v<Major>.<Minor>.x` — e.g. `v1.16.x`.
+Every change to the release branch must go through CI and receive human approval via a pull request; no direct pushes.
 
-### Go Packages
-
-A simplified version of the Go language dependency chain looks like:
-
-* Core
-* Identity
-* Region
-* Compute & Kubernetes
-* client-go (official release only)
-
-Start with core and work down.
-
-For major or minor releases only, and for services with an API, update the schema located in `pkg/openapi/server.spec.yaml`.
-
-#### Update the Library Dependencies
-
-This is a simple propagation step.
-
-If Core has been tagged as `v1.2.3`, and you are updating Identity, the next in the chain run:
+You may optionally create the branch manually ahead of time, for example to cherry-pick fixes before running the release script:
 
 ```shell
-go get github.com/unikorn-cloud/core@v1.2.3
-go mod tidy
+git switch -c v1.16.x <commit-sha>
+git push origin v1.16.x
 ```
 
-When Identity is tagged, you can update Region:
+If the branch doesn't exist yet when the script runs, it will create and push it automatically.
+
+Before starting the release script you may cherry-pick any fixes from `main` that you want included.
+Always get the fix merged to `main` first — picking from development branches bypasses review, tends to cause reverts later, and the fix won't be present in future releases.
+Raise each cherry-pick as a pull request targeting the release branch and let CI run before proceeding.
+
+### Running the Release Script
+
+The [release script](https://github.com/unikorn-cloud/scripts/blob/main/release.py) automates the bulk of the release work.
+It processes components in dependency order: `core` → `identity` → `region` → `compute` → `kubernetes` → `ui`.
+
+For each component it:
+
+* Updates `Chart.yaml` — sets both `version` and `appVersion` to the release version without a `v` prefix (Helm 4 compatible), e.g. `1.16.0`
+* Propagates Go library dependencies down the chain (`go get`, `go mod tidy`)
+* For official releases (not RCs): updates the OpenAPI spec version and runs `make validate`
+* For the UI: regenerates OpenAPI clients (`npm run openapi:*`)
+* Creates a `bump` branch, commits all changes, opens a pull request targeting the release branch
+* Waits for CI checks to pass, then pauses for human approval — approve and merge the PR, then press Enter to continue
+* After merge: tags the release branch HEAD and pushes the tag
+
+Invoke it from the directory containing all component repos:
 
 ```shell
-go get github.com/unikorn-cloud/identity@v1.2.3
-go mod tidy
+# Official release
+release.py --version v1.16.0
+
+# Release candidate
+release.py --version v1.16.0-rc1
+
+# Resume from a specific component after a failure
+release.py --version v1.16.0 --from-step region
 ```
 
-This will magically update Core at the same time.
+`client-go` is not handled by the script — for official releases, tag and push it manually.
 
-And so on.
+### Recovering from Failures
 
-#### Code Generation and API Updates
+If a GitHub Action fails mid-run, the typical recovery is:
 
-Typically, if the command exists you will run:
+1. Delete the local and remote `bump` branches in the affected repo:
 
-```
-make validate`
-```
+   ```shell
+   git branch -D bump
+   git push origin --delete bump
+   ```
 
-This will pick up any OpenAPI dependencies and generate any server stubs, clients etc. and ensure the documentation is still valid.
+2. Get the fix merged to `main`, then cherry-pick it onto the release branch as a pull request targeting `v<Major>.<Minor>.x`.
+   Getting the fix into `main` first ensures it is present in all future releases automatically.
+   Picking directly from development branches bypasses review and tends to cause reverts and complications later.
 
-You can then go ahead and ensure library dependencies still work.
+3. Restart the script from the failed component:
 
-```
-make lint
-```
+   ```shell
+   release.py --version v1.16.0 --from-step <component>
+   ```
 
-If they don't, then whoever is responsible has pushed a breaking change to a library and not made the necessary changes in all consumers of that library.
-Take a moment to educate them!
+#### Broken Dependency Updates
 
-#### Commit, Merge and Tag
+A common failure is CI rejecting a downstream component (e.g. `region`) because an engineer introduced a breaking API change in an upstream library (`core` or `identity`) without updating all consumers.
 
-Do the usual GitHub pull request dance, pull down the new main branch with the changes in, ensure you are at the correct release checkout.
-You can then use the [release script](https://github.com/nscaledev/uni-scripts/blob/main/release) to tag, push to GitHub and trigger the release action.
+In this case:
 
-The exception to the rule is `client-go` as that doesn't have a helm chart, just manually tag and push.
+* The fix must first be made in the upstream repo and merged to `main`
+* Cherry-pick it onto the upstream repo's release branch and re-release that component
+* Only once the upstream component is cleanly tagged can you continue downstream
 
-### UI
-
-The UI is pretty similar to handling Go components, and uses the same Helm chart layout as described already to define its version.
-The merge can tag flow is the same, only the following differences need to be followed.
-
-#### Updating OpenAPI Clients
-
-Once all of the Go services are merged, we can update the client code:
-
-```shell
-npm run openapi:identity
-npm run openapi:region
-npm run openapi:compute
-npm run openapi:kubernetes
-```
-
-Double check everything still compiles:
-
-```shell
-npm run check
-npm run lint
-```
-
-Like before, if it doesn't educate your developer on their responsibilities when making breaking changes.
-
-### API Documentation (Official Release Only)
-
-Run once all the services with an API are tagged, you simply tag the repository with the release version, push, and that will trigger an action to build the documentation.
+The dependency chain must be clean at each link before proceeding.
+Take the opportunity to remind the engineer responsible that breaking changes in shared libraries require fixes in all consumers before merging.
 
 ## Testing
 
@@ -162,18 +148,25 @@ You really want to avoid this!
 
 Once you're happy with testing, re-release your release candidate as an official one by following the steps above.
 
+### Deployment
+
+Deploy the release candidate to the development or staging cluster.
+
+It's a good idea to have an instance of all the various resource types running before upgrading, so you can watch for errors.
+If there is an error it's probably customer impacting and needs fixing in another release candidate.
+
+### API Tests
+
+Run the API test jobs in GitHub Actions for `identity` and `region`.
+When triggering the jobs, set the test source to the release branch (e.g. `v1.16.x`) rather than `main` — this prevents tests that verify unreleased upstream changes from causing false positives.
+
 ### Scope
 
-In lieu of any automated test suites, beyond unit tests, it's up to you to define the criteria.
 It's usually a good idea during creation of a release candidate to start drafting the release notes in this repository, collating all the changes that have happened.
 
 Then it's up to your judgment what needs testing based on the release contents.
 Remember, developers cannot be trusted, even if they say it has been tested, it has rarely been _fully_ tested.
 This is your job, if something makes it though the cracks, you're at fault, so be as thorough as makes you comfortable.
-
-It's usually a good idea to have a long running deployment somewhere with the newest official release installed.
-It's also a good idea to have an instance of all the various resource types, thus you can watch for errors when performing the upgrade.
-If there is an error, it's probably customer impacting and needs fixing in another release candidate.
 
 #### Cluster Testing
 
@@ -200,31 +193,47 @@ In general, follow the example set.
 
 ## Patch Releases
 
-Patch releases are made from hotfix branches. A hotfix branch is named `v<Major>.<Minor>.x`; e.g., `"v1.3.x"`, and is branched from the release tag of the last minor version.
-For example, you would create the hotfix branch `v1.3.x`, if it didn't exist already, with:
-
-    git switch -c v1.3.x v1.3.0
-
-### Preparing a patch release
-
-If a bug needs fixing, have it reviewed and merged to `main`.
-
-Next either checkout the hot fix branch or create one.
-This will always be in the form `v1.2.x` (where `x` is literal, not a variable!), as explained above.
-
-Cherry pick the fix on to the hotfix branch:
+Patch releases are made from the release branch `v<Major>.<Minor>.x` — the same branch used for the official minor release.
+After an official release that branch already exists, so there is no need to create it.
+If for some reason it doesn't exist (e.g. patching a very old release), create it from the release tag:
 
 ```shell
+git switch -c v1.3.x v1.3.0
+git push origin v1.3.x
+```
+
+### Preparing a patch release
+
+Get the bug fix reviewed and merged to `main` first.
+This ensures the fix is present in all future releases and not just the patch.
+
+Check out the release branch and cherry-pick the fix:
+
+```shell
+git switch v1.3.x
 git cherry-pick <Commit SHA>
 ```
 
-This may result in a merge conflixt -- make any necessary changes to make the backport apply cleanly.
+This may result in a merge conflict — make any necessary changes to make the backport apply cleanly.
 
-Create a release candidate by tagging the HEAD of the hotfix branch, and perform any testing.
+Update `Chart.yaml` with the RC version (no `v` prefix), e.g. `1.3.1-rc1`.
+Raise the cherry-pick and version bump as a pull request targeting the release branch and let CI run.
 
-Do not be pressured into skipping testing, you'll only waste more time - and upset end-users more - if you make a mistake or miss some edge case the developer also did.
+Once the pull request is merged, pull the branch and tag the release candidate:
 
-Once satisfied with testing, create the full patch release by committing any version bumps (e.g., in Chart.yaml) to the hotfix branch, then tagging with the patch version and pushing that.
-The GitHub Actions should take over and publish images, push charts, and so on.
+```shell
+git pull origin v1.3.x
+git tag v1.3.1-rc1
+git push origin v1.3.1-rc1
+```
+
+Deploy the release candidate and run the same tests as for a minor release.
+Only once testing is passing should you update `Chart.yaml` to the final version (e.g. `1.3.1`), raise a pull request, merge, then tag the full patch release:
+
+```shell
+git pull origin v1.3.x
+git tag v1.3.1
+git push origin v1.3.1
+```
 
 Add it to the release notes.
