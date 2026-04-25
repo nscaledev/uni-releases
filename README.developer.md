@@ -85,7 +85,7 @@ For each component it:
 * Propagates Go library dependencies down the chain (`go get`, `go mod tidy`)
 * For official releases (not RCs): updates the OpenAPI spec version and runs `make validate`
 * For the UI: regenerates OpenAPI clients (`npm run openapi:*`)
-* Creates a `bump` branch, commits all changes, opens a pull request targeting the release branch
+* Creates a `bump-v<Major>.<Minor>.<Patch>` branch (e.g. `bump-v1.16.0`), commits all changes, opens a pull request targeting the release branch. The branch name is derived from the target version without any pre-release suffix, so concurrent releases of different `X.Y.Z` versions do not collide
 * Waits for CI checks to pass, then pauses for human approval — approve and merge the PR, then press Enter to continue
 * After merge: tags the release branch HEAD and pushes the tag
 
@@ -108,11 +108,11 @@ release.py --version v1.16.0 --from-step region
 
 If a GitHub Action fails mid-run, the typical recovery is:
 
-1. Delete the local and remote `bump` branches in the affected repo:
+1. Delete the local and remote `bump-v<Major>.<Minor>.<Patch>` branches in the affected repo (e.g. for `v1.16.0`):
 
    ```shell
-   git branch -D bump
-   git push origin --delete bump
+   git branch -D bump-v1.16.0
+   git push origin --delete bump-v1.16.0
    ```
 
 2. Get the fix merged to `main`, then cherry-pick it onto the release branch as a pull request targeting `v<Major>.<Minor>.x`.
