@@ -31,6 +31,12 @@ Additional documentation of Kubernetes application bundle releases is provided [
 
 _27 April 20206_
 
+#### Patch Releases
+
+| Component | Version | Description | Dependencies |
+| --- | --- | --- | --- |
+| identity | v1.16.1 | <ul><li>Decouples authorisation from authentication: RBAC now resolves ACLs from OIDC userinfo claims (`acctype`, `org_ids`) and a subject-based `Group.Spec.Subjects` field, removing the runtime dependency on the user database. Legacy `UserIDs` retained for backward compatibility and rollback.</li><li>Adds an automated group migration that backfills `Subjects` from existing `UserIDs`, with checkpointing and selective re-run.</li><li>Extracts user/membership operations into a dedicated `pkg/userdb` package so RBAC depends only on userinfo claims and Group CRDs.</li><li>Hardens the impersonated ACL path: separate cache entries for direct vs impersonated callers, organisation IDs included in the impersonated ACL cache key, fail-closed when the organisation namespace is unset.</li><li>Adds RFC 8693 token-exchange grant on `/oauth2/v2/token` for passport issuance (inert until downstream middleware lands).</li></ul> | |
+
 #### Release Notes
 
 * Fixes a bug where TLS client key pair rotation was not respected by clients.
