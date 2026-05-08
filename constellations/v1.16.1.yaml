@@ -1,0 +1,18 @@
+constellation: v1.16.1
+status: candidate
+released-at: 2026-05-07
+predecessor: v1.16.0
+release-notes: https://github.com/nscaledev/uni-releases/releases/tag/v1.16.1
+
+artifactSources:
+  containerRegistry: ghcr.io/nscaledev
+  gitPrefix: https://github.com/nscaledev
+  helmRepositoryTemplate: https://nscaledev.github.io/{repo}
+
+services:
+  uni-core:       { version: v1.16.1-e10bd2c, team: instances }
+  uni-identity:   { version: v1.16.1-a7a55a9, team: identity  }
+  uni-region:     { version: v1.16.4-c2153ee, team: instances }
+  uni-compute:    { version: v1.16.3-65dd6e4, team: instances }
+  uni-kubernetes: { version: v1.16.0-5e19eb7, team: instances }
+  uni-ui:         { version: v1.16.4-1bb2a9a, team: simon     }
