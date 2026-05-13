@@ -1,6 +1,8 @@
 constellation: v1.16.1
-status: candidate
-released-at: 2026-05-07
+status: released
+released-at: 2026-05-13
+staging-soak-completed-at: 2026-05-12
+rollback-verified-at: 2026-05-12
 predecessor: v1.16.0
 release-notes: https://github.com/nscaledev/uni-releases/releases/tag/v1.16.1
 
